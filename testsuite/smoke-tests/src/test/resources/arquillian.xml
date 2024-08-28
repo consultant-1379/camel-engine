@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.org/schema/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd"
+>
+
+  <defaultProtocol type="Servlet 3.0"/>
+
+  <engine>
+    <property name="deploymentExportPath">target/arquillian</property>
+  </engine>
+
+  <!--Note: The mcast_addr and mcast_port above must be unique for jgroups isolation - make
+    sure when running tests that you change these values to be unique otherwise you cold get
+    interference problems across the network -->
+  <container qualifier="jboss_managed" default="true">
+    <!-- SET JBOSS_HOME system property to location where your jboss is -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y -->
+    <configuration>
+      <property name="jbossHome">${jboss.home}</property>
+      <property name="serverConfig">enm-mediation.xml</property>
+      <property name="javaVmArguments">-Xmx1024m -XX:MaxPermSize=256m
+			-DpreferIPv4Stack=true
+			-Djboss.socket.binding.port-offset=501 
+			-Djboss.node.name=CAMELSUBSYSTEM
+			-Djboss.tx.node.id=CAMELSUBSYSTEM
+			-Djboss.messaging.group.address=231.2.1.16
+			-Djboss.messaging.group.port=7928
+			-Dsfwk.upgrade.udp.mcast_addr=239.192.3.5
+			-Dsfwk.healthcheck.udp.mcast_addr=239.192.3.5
+			-Dsfwk.config.property.change.notifications.udp.mcast_addr=239.192.3.5
+			-Dsfwk.config.udp.mcast_addr=239.192.3.5
+			-Dsfwk.eservice.udp.mcast_addr=239.192.3.5
+			-Dsfwk.service.availability.udp.mcast_addr=239.192.3.5
+			-Dcom.ericsson.oss.itpf.sdk.cache.persistence.location.absolute.path=${cache.location}
+			-Dsdk.jgroups.distributed.udp.mcast_addr=239.192.3.5
+			-Dorg.jboss.as.logging.per-deployment=false
+			-DXML_REPO_PATH=target/deployed-model/modelRepo.xml
+			-Dcom.ericsson.oss.sdk.node.identifier=CAMELSUBSYSTEM
+			</property>
+      <!-- incremented by 500 from 9999 -->
+      <property name="managementPort">10500</property>
+    </configuration>
+  </container>
+
+</arquillian>

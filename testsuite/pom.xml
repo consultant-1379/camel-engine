@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ericsson.nms.mediation</groupId>
+		<artifactId>camel-engine</artifactId>
+		<version>3.2.8-SNAPSHOT</version>
+	</parent>
+	<groupId>org.jboss.as.camel</groupId>
+	<artifactId>testsuite</artifactId>
+	<packaging>pom</packaging>
+	<name>testsuite</name>
+
+	<properties>
+		<version.slf4j>1.7.5</version.slf4j>
+	</properties>
+	<modules>
+		<module>smoke-tests</module>
+	</modules>
+	<profiles>
+		<!-- -Dts to activate testsuite -->
+		<profile>
+			<id>activate_testsuite</id>
+			<activation>
+				<property>
+					<name>ts</name>
+				</property>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-core</artifactId>
+				<version>${version.apache.camel}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>${version.jboss.javaee.6}</version>
+				<type>pom</type>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${version.arquillian.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.as</groupId>
+				<artifactId>jboss-as-arquillian-container-managed</artifactId>
+				<version>${version.arq.jboss.as}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+				<type>jar</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${version.slf4j}</version>
+				<type>jar</type>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${version.junit}</version>
+				<type>jar</type>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>

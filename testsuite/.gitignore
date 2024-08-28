@@ -1,0 +1,7 @@
+/.settings
+/.classpath
+/.project
+**/.checkstyle
+
+/bin
+/.DS_Store

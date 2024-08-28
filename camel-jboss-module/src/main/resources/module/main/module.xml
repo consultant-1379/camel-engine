@@ -1,0 +1,30 @@
+<module xmlns="urn:jboss:module:1.0" name="org.apache.camel">
+  <resources>
+    <resource-root path="camel-core-2.12.1.jar"/>
+    <resource-root path="camel-jms-2.12.1.jar"/>
+    <resource-root path="camel-spring-2.12.1.jar"/>
+    <resource-root path="aopalliance-1.0.jar"/>
+    <resource-root path="commons-logging-1.1.1.jar"/>
+    <resource-root path="spring-aop-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-beans-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-context-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-core-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-expression-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-tx-3.2.4.RELEASE.jar"/>
+    <resource-root path="spring-jms-3.2.4.RELEASE.jar"/>
+  </resources>
+
+  <dependencies>
+    <module name="com.ericsson.oss.mediation.nodediscovery" export="true" optional="true">
+      <imports>
+        <include path="META-INF/**"/>
+      </imports>
+    </module>
+    <module name="sun.jdk"/>
+    <module name="javax.api"/>
+    <module name="javax.jms.api"/>
+    <module name="javax.transaction.api"/>
+    <module name="org.slf4j"/>
+    <module name="org.hornetq"/>
+  </dependencies>
+</module>

@@ -1,0 +1,44 @@
+# Compiled source 
+*.class
+*/bin/*
+
+# Eclipse files
+.project
+.classpath
+.settings
+.checkstyle
+**/.checkstyle
+**/cameltest.txt
+
+
+# Packages
+*.jar
+*.war
+*.ear
+
+
+# Maven build files
+target
+reports
+
+# ARQ tests
+arq-perf
+
+# PMD
+.pmd
+
+# Merge files
+*.orig
+
+# Log files
+*.log
+# backup files
+*~
+/src
+/camel-engine.tar.gz
+
+#Corba cos files
+**/CosServices.cfg
+**/.DS_Store
+
+/.DS_Store

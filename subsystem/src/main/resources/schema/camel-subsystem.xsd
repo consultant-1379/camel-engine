@@ -1,0 +1,18 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:org.jboss.as:camel-subsystem:1.0" xmlns="urn:org.jboss.as:camel-subsystem:1.0"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0"
+>
+
+  <!-- The subsystem root element -->
+  <xs:element name="subsystem" type="subsystemType"/>
+
+  <xs:complexType name="subsystemType">
+    <xs:choice>
+      <xs:element type="xs:shared-camel-context" id="shared-camel-context" name="shared-camel-context" minOccurs="1" maxOccurs="1"></xs:element>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="shared-camel-context">
+    <xs:attribute name="enabled" id="enabled" type="xs:boolean"></xs:attribute>
+    <xs:attribute name="context-name" id="context-name" type="xs:string"></xs:attribute>
+  </xs:complexType>
+</xs:schema>

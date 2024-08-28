@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ericsson.nms.mediation</groupId>
+		<artifactId>camel-engine</artifactId>
+		<version>3.2.8-SNAPSHOT</version>
+	</parent>
+	<groupId>org.jboss.as.camel</groupId>
+	<artifactId>camel-jboss-module</artifactId>
+	<name>camel-jboss-module</name>
+	<properties>
+		<module.name>org.apache.camel</module.name>
+		<module.path>org/apache/camel</module.path>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<inherited>false</inherited>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>build-dist</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<delete dir="target/module" />
+								<property name="module.dir" value="target/module/${module.path}/main" />
+								<copy file="src/main/resources/module/main/module.xml" tofile="${module.dir}/module.xml" />
+								<echo>Module ${module.name} has been created in the
+									target/module directory. Copy to your JBoss AS 7 installation.</echo>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/module/${module.path}/main</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeTransitive>false</excludeTransitive>
+							<excludeScope>test</excludeScope>
+							<includeScope>compile</includeScope>
+							<excludeArtifactIds>jboss-as-controller,jboss-as-server</excludeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<finalName>${project.artifactId}</finalName>
+							<descriptor>src/main/resources/assembly.xml</descriptor>
+							<classifier>camel-jboss-module</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jms</artifactId>						
+		</dependency>
+	</dependencies>
+</project>
